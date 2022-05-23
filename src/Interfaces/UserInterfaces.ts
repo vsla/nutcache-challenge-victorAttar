@@ -1,5 +1,5 @@
 export interface UserInterface {
-  id: number;
+  _id: number;
   name: string;
   birthDate: Date;
   Gender: "Male" | "Female";

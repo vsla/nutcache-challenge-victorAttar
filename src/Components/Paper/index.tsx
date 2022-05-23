@@ -9,6 +9,7 @@ interface Props {
 const useStyles = makeStyles({
   root: {
     padding: 24,
+    width: '100%'
   },
   title: {
     position: "relative",

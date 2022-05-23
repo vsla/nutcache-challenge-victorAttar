@@ -7,118 +7,93 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { IconButton } from "@mui/material";
+import { CircularProgress, IconButton } from "@mui/material";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 import { UserInterface } from "../../../../Interfaces/UserInterfaces";
 import Paper from "../../../../Components/Paper";
 
-const rows: UserInterface[] = [
-  {
-    id: 1,
-    name: "Victor Sena",
-    birthDate: new Date(),
-    Gender: "Male",
-    Email: "teste@teste.com",
-    CPF: "111.111.111.00",
-    StartDate: new Date(),
-    Team: "FrontEnd",
-  },
-  {
-    id: 1,
-    name: "Victor Sena",
-    birthDate: new Date(),
-    Gender: "Male",
-    Email: "teste@teste.com",
-    CPF: "111.111.111.00",
-    StartDate: new Date(),
-    Team: "FrontEnd",
-  },
-  {
-    id: 1,
-    name: "Victor Sena",
-    birthDate: new Date(),
-    Gender: "Male",
-    Email: "teste@teste.com",
-    CPF: "111.111.111.00",
-    StartDate: new Date(),
-    Team: "FrontEnd",
-  },
-  {
-    id: 1,
-    name: "Victor Sena",
-    birthDate: new Date(),
-    Gender: "Male",
-    Email: "teste@teste.com",
-    CPF: "111.111.111.00",
-    StartDate: new Date(),
-    Team: "FrontEnd",
-  },
-];
+interface UserTableProps {
+  UserList: UserInterface[] | [];
+  loading: Boolean;
+}
 
-const UserTable: React.FC = () => {
-  const handleOpenPopUp = (id: number) => {};
+const UserTable = ({ UserList, loading }: UserTableProps) => {
+  const handleOpenPopUp = (_id: number) => {};
 
   return (
     <UserTableContainer>
       <Paper title="Users">
-        <TableContainer>
-          <Table aria-label="a dense table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell align="right">Birth Date</TableCell>
-                <TableCell align="right">Gender</TableCell>
-                <TableCell align="right">Email</TableCell>
-                <TableCell align="right">CPF</TableCell>
-                <TableCell align="right">Start Date</TableCell>
-                <TableCell align="right">Team</TableCell>
-                <TableCell align="right"></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map(
-                ({
-                  id,
-                  name,
-                  birthDate,
-                  Gender,
-                  Email,
-                  CPF,
-                  StartDate,
-                  Team,
-                }) => (
-                  <TableRow key={name}>
-                    <TableCell component="th" scope="row">
-                      {name}
-                    </TableCell>
-                    <TableCell align="right">
-                      {birthDate.toLocaleDateString()}
-                    </TableCell>
-                    <TableCell align="right">{Gender}</TableCell>
-                    <TableCell align="right">{Email}</TableCell>
-                    <TableCell align="right">{CPF}</TableCell>
-                    <TableCell align="right">
-                      {StartDate.toLocaleDateString()}
-                    </TableCell>
-                    <TableCell align="right">{Team}</TableCell>
-                    <TableCell align="right">
-                      <IconButton onClick={() => handleOpenPopUp(id)}>
-                        <RemoveRedEyeIcon />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                )
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        {!loading ? (
+          <TableContainer>
+            <Table aria-label="a dense table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Name</TableCell>
+                  <TableCell align="right">Birth Date</TableCell>
+                  <TableCell align="right">Gender</TableCell>
+                  <TableCell align="right">Email</TableCell>
+                  <TableCell align="right">CPF</TableCell>
+                  <TableCell align="right">Start Date</TableCell>
+                  <TableCell align="right">Team</TableCell>
+                  <TableCell align="right"></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {UserList.map(
+                  ({
+                    _id,
+                    name,
+                    birthDate,
+                    Gender,
+                    Email,
+                    CPF,
+                    StartDate,
+                    Team,
+                  }) => (
+                    <TableRow key={name}>
+                      <TableCell component="th" scope="row">
+                        {name}
+                      </TableCell>
+                      <TableCell align="right">
+                        {new Date(birthDate).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell align="right">{Gender}</TableCell>
+                      <TableCell align="right">{Email}</TableCell>
+                      <TableCell align="right">{CPF}</TableCell>
+                      <TableCell align="right">
+                        {new Date(StartDate).toLocaleDateString()}
+                      </TableCell>
+                      <TableCell align="right">{Team}</TableCell>
+                      <TableCell align="right">
+                        <IconButton onClick={() => handleOpenPopUp(_id)}>
+                          <RemoveRedEyeIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  )
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ) : (
+          <LoadingDiv>
+            <CircularProgress />
+          </LoadingDiv>
+        )}
       </Paper>
     </UserTableContainer>
   );
 };
 
 const UserTableContainer = styled.div`
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  width: 100%;
+`;
+
+const LoadingDiv = styled.div`
   display: flex;
   flex-grow: 1;
   justify-content: center;

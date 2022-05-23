@@ -8,7 +8,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { CircularProgress, IconButton } from "@mui/material";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import Edit from "@mui/icons-material/Edit";
+import Delete from "@mui/icons-material/Delete";
 
 import { UserInterface } from "../../../../Interfaces/UserInterfaces";
 import Paper from "../../../../Components/Paper";
@@ -30,49 +31,34 @@ const UserTable = ({ UserList, loading }: UserTableProps) => {
               <TableHead>
                 <TableRow>
                   <TableCell>Name</TableCell>
-                  <TableCell align="right">Birth Date</TableCell>
-                  <TableCell align="right">Gender</TableCell>
                   <TableCell align="right">Email</TableCell>
-                  <TableCell align="right">CPF</TableCell>
                   <TableCell align="right">Start Date</TableCell>
                   <TableCell align="right">Team</TableCell>
                   <TableCell align="right"></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {UserList.map(
-                  ({
-                    _id,
-                    name,
-                    birthDate,
-                    Gender,
-                    Email,
-                    CPF,
-                    StartDate,
-                    Team,
-                  }) => (
-                    <TableRow key={name}>
-                      <TableCell component="th" scope="row">
-                        {name}
-                      </TableCell>
-                      <TableCell align="right">
-                        {new Date(birthDate).toLocaleDateString()}
-                      </TableCell>
-                      <TableCell align="right">{Gender}</TableCell>
-                      <TableCell align="right">{Email}</TableCell>
-                      <TableCell align="right">{CPF}</TableCell>
-                      <TableCell align="right">
-                        {new Date(StartDate).toLocaleDateString()}
-                      </TableCell>
-                      <TableCell align="right">{Team}</TableCell>
-                      <TableCell align="right">
-                        <IconButton onClick={() => handleOpenPopUp(_id)}>
-                          <RemoveRedEyeIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  )
-                )}
+                {UserList.map(({ _id, name, Email, StartDate, Team }) => (
+                  <TableRow key={name}>
+                    <TableCell component="th" scope="row">
+                      {name}
+                    </TableCell>
+                    <TableCell align="right">{Email}</TableCell>
+                    <TableCell align="right">
+                      {new Date(StartDate).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell align="right">{Team}</TableCell>
+
+                    <TableCell align="right">
+                      <IconButton onClick={() => handleOpenPopUp(_id)}>
+                        <Edit />
+                      </IconButton>
+                      <IconButton onClick={() => handleOpenPopUp(_id)}>
+                        <Delete />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>

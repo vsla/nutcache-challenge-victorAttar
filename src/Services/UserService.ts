@@ -1,4 +1,7 @@
-import { UserInterface } from "../Interfaces/UserInterfaces";
+import {
+  UserInterface,
+  EditUserPayloadInterface,
+} from "../Interfaces/UserInterfaces";
 import Api from "./Api";
 
 export const GetUsers = async () => {
@@ -10,8 +13,19 @@ export const GetUsers = async () => {
     return { data: [] };
   }
 };
+
 export const GetUser = () => {};
-export const CreateUser = () => {};
+
+export const CreateUser = async (userData: UserInterface) => {
+  try {
+    const response = await Api.post("", userData);
+
+    return response;
+  } catch (error) {
+    return { data: [] };
+  }
+};
+
 export const DeleteUser = async (_id: number) => {
   try {
     const response = await Api.delete("/" + _id);
@@ -21,4 +35,16 @@ export const DeleteUser = async (_id: number) => {
     return { data: [] };
   }
 };
-export const EditUser = () => {};
+
+export const EditUser = async (
+  userData: EditUserPayloadInterface,
+  _id: number
+) => {
+  try {
+    const response = await Api.put("/" + _id, userData);
+
+    return response;
+  } catch (error) {
+    return { data: [] };
+  }
+};

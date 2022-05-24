@@ -11,7 +11,10 @@ import {
 } from "@mui/material";
 
 import styled from "styled-components";
-import { UserFormInterface } from "../../../../Interfaces/UserInterfaces";
+import {
+  UserFormInterface,
+  UserInterface,
+} from "../../../../Interfaces/UserInterfaces";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import dayJs from "dayjs";
@@ -33,18 +36,26 @@ const validationSchema = yup.object({
   birthDate: yup
     .date()
     .required("Insert a valid Date")
-    .min(dayJs(today).format("YYYY-MM-DD")),
+    .max(dayJs(today).format("YYYY-MM-DD")),
   StartDate: yup
     .date()
     .required("Insert a valid Date")
-    .min(dayJs(today).format("YYYY-MM")),
+    .max(dayJs(today).format("YYYY-MM")),
 });
 
 const Genders = ["Male", "Female"];
 
 const Teams = ["FrontEnd", "BackEnd", "Mobile"];
 
-const UserformComponent = () => {
+interface UserFormComponentInterface {
+  handleSubmit: (userData: UserFormInterface) => void;
+  employee?: UserInterface | null;
+}
+
+const UserformComponent = ({
+  handleSubmit,
+  employee,
+}: UserFormComponentInterface) => {
   const initialValues: UserFormInterface = {
     name: "",
     birthDate: "",
@@ -56,10 +67,10 @@ const UserformComponent = () => {
   };
 
   const formik = useFormik({
-    initialValues,
+    initialValues: employee ? employee : initialValues,
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: (values: UserFormInterface) => {
+      handleSubmit(values);
     },
   });
 

@@ -22,14 +22,28 @@ import Paper from "../../../../Components/Paper";
 interface UserTableProps {
   UserList: UserInterface[] | [];
   loading: Boolean;
-  handleDeleteUser: (_id: number) => void;
+  openModal: boolean;
+  setOpenModal: (open: boolean) => void;
+  handleCloseModalForm: () => void;
+  handleDeleteUser: (employee: UserInterface) => void;
 }
 
-const UserTable = ({ UserList, loading, handleDeleteUser }: UserTableProps) => {
-  const [openModal, setOpenModal] = useState<boolean>(true);
+const UserTable = ({
+  UserList,
+  openModal,
+  setOpenModal,
+  handleCloseModalForm,
+  loading,
+  handleDeleteUser,
+}: UserTableProps) => {
   const [modalType, setModalType] = useState<"EDIT" | "CREATE">("CREATE");
+  const [userToEdit, setUserToEdit] = useState<UserInterface | null>(null);
 
-  const handleOpenPopUp = (_id: number) => {};
+  const handleEditUser = (employee: UserInterface) => {
+    setUserToEdit(employee);
+    setModalType("EDIT");
+    setOpenModal(true);
+  };
 
   const CreateUserButton = () => {
     return (
@@ -37,8 +51,9 @@ const UserTable = ({ UserList, loading, handleDeleteUser }: UserTableProps) => {
         variant="contained"
         startIcon={<Add />}
         onClick={() => {
-          setOpenModal(true);
           setModalType("CREATE");
+          setUserToEdit(null);
+          setOpenModal(true);
         }}
       >
         New User
@@ -49,7 +64,11 @@ const UserTable = ({ UserList, loading, handleDeleteUser }: UserTableProps) => {
   return (
     <UserTableContainer>
       <UserForm
-        handleClose={() => setOpenModal(false)}
+        employee={userToEdit}
+        handleClose={() => {
+          handleCloseModalForm();
+          setUserToEdit(null);
+        }}
         open={openModal}
         type={modalType}
       />
@@ -67,27 +86,40 @@ const UserTable = ({ UserList, loading, handleDeleteUser }: UserTableProps) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {UserList.map(({ _id, name, Email, StartDate, Team }) => (
-                  <TableRow key={name}>
-                    <TableCell component="th" scope="row">
-                      {name}
-                    </TableCell>
-                    <TableCell align="right">{Email}</TableCell>
-                    <TableCell align="right">
-                      {new Date(StartDate).toLocaleDateString()}
-                    </TableCell>
-                    <TableCell align="right">{Team}</TableCell>
+                {UserList.length > 0 ? (
+                  UserList.map((employee) => {
+                    const { _id, name, Email, StartDate, Team } = employee;
+                    return (
+                      <TableRow key={name}>
+                        <TableCell component="th" scope="row">
+                          {name}
+                        </TableCell>
+                        <TableCell align="right">{Email}</TableCell>
+                        <TableCell align="right">
+                          {new Date(StartDate).toLocaleDateString()}
+                        </TableCell>
+                        <TableCell align="right">{Team}</TableCell>
 
-                    <TableCell align="right">
-                      <IconButton onClick={() => handleOpenPopUp(_id)}>
-                        <Edit />
-                      </IconButton>
-                      <IconButton onClick={() => handleDeleteUser(_id)}>
-                        <Delete />
-                      </IconButton>
+                        <TableCell align="right">
+                          <IconButton onClick={() => handleEditUser(employee)}>
+                            <Edit />
+                          </IconButton>
+                          <IconButton
+                            onClick={() => handleDeleteUser(employee)}
+                          >
+                            <Delete />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={6} align="center">
+                      No registered employee
                     </TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </TableContainer>

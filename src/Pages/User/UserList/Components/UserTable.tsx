@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import {
+  Grid,
   Button,
   CircularProgress,
   IconButton,
@@ -13,7 +14,7 @@ import {
   TableRow,
 } from "@mui/material";
 
-import { Add, Delete, Edit } from "@mui/icons-material";
+import { Add, Delete, Edit, Remove } from "@mui/icons-material";
 
 import UserForm from "../../UserForm";
 import { UserInterface } from "../../../../Interfaces/UserInterfaces";
@@ -45,19 +46,56 @@ const UserTable = ({
     setOpenModal(true);
   };
 
-  const CreateUserButton = () => {
+  const handleCreateUser = () => {
+    setModalType("CREATE");
+    setUserToEdit(null);
+    setOpenModal(true);
+  };
+
+  const ButtonContainer = () => {
     return (
-      <Button
-        variant="contained"
-        startIcon={<Add />}
-        onClick={() => {
-          setModalType("CREATE");
-          setUserToEdit(null);
-          setOpenModal(true);
-        }}
-      >
-        New User
-      </Button>
+      <Grid container justifyContent='end' spacing={1}>
+        <Grid item xs="auto">
+          <Button
+            size="small"
+            variant="contained"
+            startIcon={<Add />}
+            onClick={handleCreateUser}
+          >
+            New User
+          </Button>
+        </Grid>
+        {UserList.length > 0 ? (
+          <>
+            <Grid item xs="auto">
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={<Edit />}
+                onClick={() => {
+                  handleEditUser(UserList[UserList.length - 1]);
+                }}
+              >
+                Edit last user
+              </Button>
+            </Grid>
+            <Grid item xs="auto">
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={<Remove />}
+                onClick={() => {
+                  handleDeleteUser(UserList[UserList.length - 1]);
+                }}
+              >
+                Remove last user
+              </Button>
+            </Grid>
+          </>
+        ) : (
+          <></>
+        )}
+      </Grid>
     );
   };
 
@@ -72,7 +110,7 @@ const UserTable = ({
         open={openModal}
         type={modalType}
       />
-      <Paper title="Employee List" ButtonTitle={CreateUserButton}>
+      <Paper title="Employee List" ButtonTitle={ButtonContainer}>
         {!loading ? (
           <TableContainer>
             <Table aria-label="a dense table">

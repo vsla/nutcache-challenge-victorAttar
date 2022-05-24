@@ -16,7 +16,6 @@ interface UserFormProps {
 
 const UserForm = ({ open, handleClose, type, employee }: UserFormProps) => {
   const handleSubmit = async (values: UserInterface) => {
-    console.log(values);
     if (type === "CREATE") {
       await CreateUser(values);
       handleClose();

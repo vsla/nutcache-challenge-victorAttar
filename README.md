@@ -1,46 +1,67 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- <h1 align="center">
+  <img alt="TrackingDelivery" title="#TrackingDelivery" src="./Docs/GithubProfile.jpg" style="width:100%;"/>
+</h1> -->
+<h1 align="center">Employee Manager</h1>
 
-## Available Scripts
+<p align="center">Website to manage employees</p>
 
-In the project directory, you can run:
+<p align="center">
+  <img alt="Forks" src='https://img.shields.io/github/forks/vsla/nutcache-challenge-victorAttar'> 
+  <img alt="Issues" src='https://img.shields.io/github/issues/vsla/nutcache-challenge-victorAttar'> 
+  <img alt="Starts" src='https://img.shields.io/github/stars/vsla/nutcache-challenge-victorAttar'>
+</p>
 
-### `yarn start`
+## Summary
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [🚀 Stack Used](#-stack-used)
+- [🔖 Libraries Used](#-libraries-used)
+- [⚡ Running the app](#-running-the-app)
+- [📝 License](#-license)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+<!-- Running on this [link]() -->
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🚀 Stack Used
 
-### `yarn build`
+The following tools were used to develop this project:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **React**
+- **Yarn**
+- Typescript
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🔖 Libraries Used
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [Material ui](https://mui.com/)
+- [Axios](https://github.com/axios/axios)
+- [Testing-library](https://testing-library.com/)
+- [DayJs](https://day.js.org/)
+- [Formik](https://formik.org/)
 
-### `yarn eject`
+## ⚡ Running the app
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+First, we need to generate a new Backend Url.
+Get into [CrudCruD website](https://crudcrud.com/) and copy the url generated
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+# Clonning the repo
+$ git clone
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+# Install all the dependencies
+$ yarn install
 
-## Learn More
+# Create a file name .env and add this variable to .env file
+# Have one .env.example on the project, just use this model
+REACT_APP_API_CRUD_CRUD="CrudCrudUrlGenerated"
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Run the project
+$ yarn run
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+
+## 📝 License
+
+Este projeto esta sobe a licença MIT.
+
+Made with ❤️ by Victor Attar <a href="https://www.linkedin.com/in/victor-attar" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a>

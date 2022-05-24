@@ -54,7 +54,7 @@ const UserTable = ({
 
   const ButtonContainer = () => {
     return (
-      <Grid container justifyContent='end' spacing={1}>
+      <Grid container justifyContent="end" spacing={1}>
         <Grid item xs="auto">
           <Button
             size="small"
@@ -126,7 +126,7 @@ const UserTable = ({
               <TableBody>
                 {UserList.length > 0 ? (
                   UserList.map((employee) => {
-                    const { _id, name, Email, StartDate, Team } = employee;
+                    const { name, Email, StartDate, Team } = employee;
                     return (
                       <TableRow key={name}>
                         <TableCell component="th" scope="row">

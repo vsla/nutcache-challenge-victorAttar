@@ -12,5 +12,13 @@ export const GetUsers = async () => {
 };
 export const GetUser = () => {};
 export const CreateUser = () => {};
-export const DeleteUser = () => {};
+export const DeleteUser = async (_id: number) => {
+  try {
+    const response = await Api.delete("/" + _id);
+
+    return response;
+  } catch (error) {
+    return { data: [] };
+  }
+};
 export const EditUser = () => {};

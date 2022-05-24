@@ -1,30 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import { CircularProgress, IconButton } from "@mui/material";
-import Edit from "@mui/icons-material/Edit";
-import Delete from "@mui/icons-material/Delete";
+import {
+  Button,
+  CircularProgress,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 
+import { Add, Delete, Edit } from "@mui/icons-material";
+
+import UserForm from "../../UserForm";
 import { UserInterface } from "../../../../Interfaces/UserInterfaces";
 import Paper from "../../../../Components/Paper";
 
 interface UserTableProps {
   UserList: UserInterface[] | [];
   loading: Boolean;
+  handleDeleteUser: (_id: number) => void;
 }
 
-const UserTable = ({ UserList, loading }: UserTableProps) => {
+const UserTable = ({ UserList, loading, handleDeleteUser }: UserTableProps) => {
+  const [openModal, setOpenModal] = useState<boolean>(true);
+  const [modalType, setModalType] = useState<"EDIT" | "CREATE">("CREATE");
+
   const handleOpenPopUp = (_id: number) => {};
+
+  const CreateUserButton = () => {
+    return (
+      <Button
+        variant="contained"
+        startIcon={<Add />}
+        onClick={() => {
+          setOpenModal(true);
+          setModalType("CREATE");
+        }}
+      >
+        New User
+      </Button>
+    );
+  };
 
   return (
     <UserTableContainer>
-      <Paper title="Users">
+      <UserForm
+        handleClose={() => setOpenModal(false)}
+        open={openModal}
+        type={modalType}
+      />
+      <Paper title="Employee List" ButtonTitle={CreateUserButton}>
         {!loading ? (
           <TableContainer>
             <Table aria-label="a dense table">
@@ -53,7 +82,7 @@ const UserTable = ({ UserList, loading }: UserTableProps) => {
                       <IconButton onClick={() => handleOpenPopUp(_id)}>
                         <Edit />
                       </IconButton>
-                      <IconButton onClick={() => handleOpenPopUp(_id)}>
+                      <IconButton onClick={() => handleDeleteUser(_id)}>
                         <Delete />
                       </IconButton>
                     </TableCell>

@@ -1,51 +1,48 @@
-import { Grid, Paper as MaterialPaper, Typography } from "@mui/material";
+import React, { FC } from "react";
+import { Paper as MaterialPaper, Typography } from "@mui/material";
 
-import { makeStyles } from "@mui/styles";
+import styled from "styled-components";
 
 interface Props {
   children: any;
   title?: string;
+  ButtonTitle?: FC;
 }
-const useStyles = makeStyles({
-  root: {
-    padding: 24,
-    width: '100%'
-  },
-  title: {
-    position: "relative",
-    "&:after": {
-      content: "''",
-      position: "absolute",
-      width: "50%",
-      backgroundColor: "#6a6a6a",
-      height: "1px",
-      bottom: 0,
-      left: 0,
-    },
-  },
-});
 
-export default function Paper({ children, title = "" }: Props) {
-  const classes = useStyles();
+export default function Paper({ children, title = "", ButtonTitle }: Props) {
   return (
-    <MaterialPaper data-testid="paper" elevation={1} className={classes.root}>
-      <Grid container spacing={3}>
+    <PaperComponent data-testid="paper" elevation={1}>
+      <TitleContainer>
         {title && (
-          <Grid item xs={12}>
-            <Typography
-              data-testid="paper-title"
-              className={classes.title}
-              variant="h4"
-              display="inline"
-            >
-              {title}
-            </Typography>
-          </Grid>
+          <Typography data-testid="paper-title" variant="h4" display="inline">
+            {title}
+          </Typography>
         )}
-        <Grid item xs={12}>
-          {children}
-        </Grid>
-      </Grid>
-    </MaterialPaper>
+        {ButtonTitle && (
+          <ButtonContainer>
+            <ButtonTitle />
+          </ButtonContainer>
+        )}
+      </TitleContainer>
+
+      {children}
+    </PaperComponent>
   );
 }
+
+const PaperComponent = styled(MaterialPaper)`
+  padding: 24px;
+  width: 100%;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-grow: 1;
+  justify-content: end;
+`;
+
+const TitleContainer = styled.div`
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: row;
+`;

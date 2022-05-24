@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { UserInterface } from "../../../Interfaces/UserInterfaces";
-import { GetUsers } from "../../../Services/UserService";
+import { UserInterface } from "Interfaces/UserInterfaces";
+import { DeleteUser, GetUsers } from "Services/UserService";
 import UserTable from "./Components/UserTable";
 
 const UserList: React.FC = () => {
@@ -10,10 +10,14 @@ const UserList: React.FC = () => {
   const [userList, setUserlist] = useState<UserInterface[]>([]);
 
   const getUsersList = async () => {
-    setLoading(true)
+    setLoading(true);
     const response = await GetUsers();
     setUserlist(response.data);
-    setLoading(false)
+    setLoading(false);
+  };
+
+  const handleDeleteUser = async (_id: number) => {
+    const response = await DeleteUser(_id);
   };
 
   useEffect(() => {
@@ -22,7 +26,11 @@ const UserList: React.FC = () => {
 
   return (
     <UserListContainer>
-      <UserTable UserList={userList} loading={loading} />
+      <UserTable
+        UserList={userList}
+        loading={loading}
+        handleDeleteUser={handleDeleteUser}
+      />
     </UserListContainer>
   );
 };

@@ -12,9 +12,9 @@
   <img alt="Starts" src='https://img.shields.io/github/stars/vsla/nutcache-challenge-victorAttar'>
 </p>
 
-<div style='display: flex; '>
-<img src="https://github.com/vsla/nutcache-challenge-victorAttar/blob/master/assets/employeeForm.png?raw=true" alt="drawing" width="50%" height='70%' />
-<img src="https://github.com/vsla/nutcache-challenge-victorAttar/blob/master/assets/employeeList.png?raw=true" alt="drawing" width="50%" height='auto'/>
+<div style='display: flex; flex-direction: row; align-items: center;'>
+<img src="https://github.com/vsla/nutcache-challenge-victorAttar/blob/master/assets/employeeForm.png?raw=true" alt="drawing" width="35%" height='70%' />
+<img src="https://github.com/vsla/nutcache-challenge-victorAttar/blob/master/assets/employeeList.png?raw=true" alt="drawing" width="64%" height='auto'/>
 </div>
 
 
